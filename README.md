@@ -19,6 +19,12 @@
 <a href="https://www.sloansportsconference.com/research-papers/the-pitchers-dilemma-a-game-theoretical-model-of-pickoffs-and-stolen-bases"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/work-pitchers-dilemma-dark.svg"><img src="assets/work-pitchers-dilemma-light.svg" alt="The Pitcher's Dilemma: game-theory model of pickoffs and stolen bases. Paper."></picture></a>
 
 <!-- contributions:start -->
+### Contributions
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="assets/contributions-dark.svg">
+  <img src="assets/contributions-light.svg" alt="Contribution calendar: 1,623 contributions in the last year.">
+</picture>
 <!-- contributions:end -->
 
 [Portfolio](https://robertgreathouse.dev) · [LinkedIn](https://www.linkedin.com/in/rgreathouse-iii) · [Résumé](https://robertgreathouse.dev/robert_greathouse.pdf) · [robert.k.greathouse@gmail.com](mailto:robert.k.greathouse@gmail.com)
