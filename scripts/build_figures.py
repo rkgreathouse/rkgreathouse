@@ -63,6 +63,8 @@ MODES = {
 }
 C = MODES["dark"]
 W, X0 = 880, 2
+# Type sizes: body text, secondary text, the lead paragraph, numbers.
+BODY, SMALL, LEAD, NUM = 16, 14.5, 17, 13
 EASE_OUT = "0.16 1 0.3 1"
 
 
@@ -135,7 +137,7 @@ class Figure:
         self.used = {role: "" for role in FONTS}
         self.bars = []
 
-    def text(self, x, y, s, cls, font="text", size=14, anchor="start", bar=True):
+    def text(self, x, y, s, cls, font="text", size=BODY, anchor="start", bar=True):
         self.used[font] += s
         width = measure(s, size, font)
         if bar:
@@ -144,7 +146,7 @@ class Figure:
         extra = f' text-anchor="{anchor}"' if anchor != "start" else ""
         return f'<text x="{n(x)}" y="{n(y)}" class="{cls}"{extra}>{esc(s)}</text>'
 
-    def mono(self, x, y, s, cls, size=12, anchor="start", bar=True):
+    def mono(self, x, y, s, cls, size=NUM, anchor="start", bar=True):
         """Monospace text with a fixed advance, so it lines up on every platform."""
         self.used["mono"] += s
         width = len(s) * size * 0.6
@@ -169,11 +171,11 @@ class Figure:
 
     def render(self, label, style, body, defs=""):
         base = (
-            f".body{{font:400 14px {SANS};fill:{C['fg']}}}"
-            f".name{{font:600 14px {SANS};fill:{C['bright']}}}"
-            f".label{{font:400 13px {SANS};fill:{C['muted']}}}"
-            f".note{{font:400 13px {SANS};fill:{C['muted']}}}"
-            f".num{{font:400 12px {MONO};fill:{C['muted']}}}"
+            f".body{{font:400 {BODY}px {SANS};fill:{C['fg']}}}"
+            f".name{{font:600 {BODY}px {SANS};fill:{C['bright']}}}"
+            f".label{{font:400 {SMALL}px {SANS};fill:{C['muted']}}}"
+            f".note{{font:400 {SMALL}px {SANS};fill:{C['muted']}}}"
+            f".num{{font:400 {NUM}px {MONO};fill:{C['muted']}}}"
         )
         gradient = (
             f'<linearGradient id="sk" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="{self.w}" y2="0">'
@@ -236,12 +238,12 @@ FACTS = [
 
 
 def profile(mode):
-    size, intro, top, step = 40, 1.1, 160, 34
+    size, intro, top, step = 40, 1.1, 172, 37
     fig = Figure(W, top + step * (len(FACTS) - 1) + 14)
     fig.used["display"] += NAME
     style = (
         f".title{{font:700 {size}px {DISPLAY};fill:{C['bright']};letter-spacing:-.6px}}"
-        f".about{{font:400 15px {SANS};fill:{C['soft']}}}"
+        f".about{{font:400 {LEAD}px {SANS};fill:{C['soft']}}}"
     )
 
     # The one authored moment: the name types itself, and the cursor stays.
@@ -264,11 +266,11 @@ def profile(mode):
     )
     fig.bars.append((X0, 16, advances[-1], 32, 6))
 
-    lead = "".join(fig.text(X0, 84 + i * 23, line, "about", size=15) for i, line in enumerate(ABOUT))
+    lead = "".join(fig.text(X0, 86 + i * 26, line, "about", size=LEAD) for i, line in enumerate(ABOUT))
     rows = []
     for i, (icon, color, label, value, since) in enumerate(FACTS):
         y = top + i * step
-        row = fig.icon(icon, X0, y - 13, C[color]) + fig.text(X0 + 30, y, label, "label", size=13) + fig.text(X0 + 150, y, value, "body")
+        row = fig.icon(icon, X0, y - 14, C[color], 18) + fig.text(X0 + 30, y, label, "label", size=SMALL) + fig.text(X0 + 150, y, value, "body")
         if since:
             row += fig.mono(W - X0, y, since, "num", anchor="end")
         rows.append(row)
@@ -300,24 +302,24 @@ TOOLS = [
 
 
 def languages(mode):
-    intro, top, step = 1.2, 20, 34
+    intro, top, step = 1.2, 22, 37
     tools_top = top + step * len(LANGUAGES) + 18
     fig = Figure(W, tools_top + step * (len(TOOLS) - 1) + 12)
-    c1, c2, c3 = X0 + 30, X0 + 170, 600
+    c1, c2, c3 = X0 + 32, X0 + 172, 610
     rows = []
     for i, (name, mark, color, used, where) in enumerate(LANGUAGES):
         y = top + i * step
-        rows.append(fig.logo(mark, X0, y - 13, C[color], 17) + fig.text(c1, y, name, "name", "strong") + fig.text(c2, y, used, "body")
-                    + fig.text(c3, y, where, "note", size=13))
+        rows.append(fig.logo(mark, X0, y - 14, C[color], 18) + fig.text(c1, y, name, "name", "strong") + fig.text(c2, y, used, "body")
+                    + fig.text(c3, y, where, "note", size=SMALL))
     for i, (label, items) in enumerate(TOOLS):
         y = tools_top + i * step
-        row, x = fig.text(X0, y, label, "label", size=13), c2
+        row, x = fig.text(X0, y, label, "label", size=SMALL), c2
         for item, color in items:
-            mark = fig.logo(item, x, y - 12, C[color], 15)
+            mark = fig.logo(item, x, y - 13, C[color], 16)
             if not mark:
-                mark = f'<circle cx="{n(x + 7.5)}" cy="{n(y - 4.5)}" r="4.5" fill="none" stroke="{C[color]}" stroke-width="1.8"/>'
-            row += mark + fig.text(x + 23, y, item, "body")
-            x += 23 + measure(item, 14) + 26
+                mark = f'<circle cx="{n(x + 8)}" cy="{n(y - 5)}" r="5" fill="none" stroke="{C[color]}" stroke-width="1.8"/>'
+            row += mark + fig.text(x + 24, y, item, "body")
+            x += 24 + measure(item, BODY) + 26
         rows.append(row)
     body = skeleton(fig.bars, intro) + "".join(settle(row, intro + i * 0.05) for i, row in enumerate(rows))
     label = "Languages: " + "; ".join(f"{nm} for {u.lower()} ({w})" for nm, _, _, u, w in LANGUAGES) + ". " + " ".join(
@@ -340,12 +342,12 @@ WORK = [
 
 
 def work_row(mode, slug, icon, color, title, about, kind, index):
-    intro, h = 1.2 + index * 0.08, 40
+    intro, h = 1.2 + index * 0.08, 44
     fig = Figure(W, h)
     y = h / 2 + 5
-    style = f".repo{{font:700 16px {DISPLAY};fill:{C['bright']};letter-spacing:-.1px}}"
-    row = fig.icon(icon, X0, y - 14, C[color], 18) + fig.text(X0 + 30, y, title, "repo", "display", 16)
-    row += fig.text(X0 + 258, y, about, "body") + fig.text(W - X0 - 30, y, kind, "note", size=13, anchor="end")
+    style = f".repo{{font:700 17px {DISPLAY};fill:{C['bright']};letter-spacing:-.1px}}"
+    row = fig.icon(icon, X0, y - 15, C[color], 19) + fig.text(X0 + 32, y, title, "repo", "display", 17)
+    row += fig.text(X0 + 262, y, about, "body") + fig.text(W - X0 - 30, y, kind, "note", size=SMALL, anchor="end")
     ax, ay = W - X0 - 15, h / 2
     row += (f'<path d="M{ax} {ay + 6}l12-12m-9 0h9v9" fill="none" stroke="{C[color]}" stroke-width="1.8" '
             'stroke-linecap="round" stroke-linejoin="round"/>')
@@ -361,8 +363,8 @@ def contributions(mode, days):
     """days: [(date, count, level 0-4), ...] oldest first, starting on a Sunday."""
     intro, sweep = 1.2, 1.6
     cell, pitch = 13, 16.5
-    x0, y0 = X0, 28
-    fig = Figure(W, y0 + 7 * pitch + 40)
+    x0, y0 = X0, 30
+    fig = Figure(W, y0 + 7 * pitch + 44)
     start = days[0][0]
     week = lambda d: (d - start).days // 7
     weeks = week(days[-1][0]) + 1
@@ -378,7 +380,7 @@ def contributions(mode, days):
     for col in range(weeks):
         first = start + datetime.timedelta(days=col * 7)
         if first.day <= 7 and col - last > 3 and col < weeks - 1:
-            frame += fig.mono(x0 + col * pitch, 12, first.strftime("%b"), "num", bar=False)
+            frame += fig.mono(x0 + col * pitch, 13, first.strftime("%b"), "num", bar=False)
             last = col
     r = cell - 3
     squares = "".join(
@@ -399,10 +401,10 @@ def contributions(mode, days):
         )
     fy = fig.h - 10
     line = f"{total:,} contributions in the last year"
-    footer = fig.text(x0, fy, line, "body") + fig.text(x0 + measure(line, 14) + 20, fy, f"Longest streak {best} days", "note", size=13)
+    footer = fig.text(x0, fy, line, "body") + fig.text(x0 + measure(line, BODY) + 20, fy, f"Longest streak {best} days", "note", size=SMALL)
     lx = W - X0 - 5 * pitch + 3
     legend = "".join(f'<rect x="{n(lx + i * pitch)}" y="{fy - 11}" width="{cell}" height="{cell}" rx="3" fill="{s}"/>' for i, s in enumerate(shades))
-    legend += fig.text(lx - 10, fy, "Less", "note", size=13, anchor="end", bar=False)
+    legend += fig.text(lx - 10, fy, "Less", "note", size=SMALL, anchor="end", bar=False)
     body = frame + grid + columns + skeleton(fig.bars, intro) + settle(footer + legend, intro + sweep, rise=0)
     defs = f'<rect id="c" width="{cell}" height="{cell}" rx="3"/>'
     write("contributions", mode, fig.render(f"{line}. Longest streak {best} days.", "", body, defs))
