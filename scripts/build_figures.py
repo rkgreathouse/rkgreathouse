@@ -63,8 +63,8 @@ MODES = {
 }
 C = MODES["dark"]
 W, X0 = 880, 2
-# Type sizes: body text, secondary text, the lead paragraph, numbers.
-BODY, SMALL, LEAD, NUM = 16, 14.5, 17, 13
+# Type sizes: section headings, body text, secondary text, the lead paragraph, numbers.
+HEAD, BODY, SMALL, LEAD, NUM = 26, 17, 15.5, 18, 13.5
 EASE_OUT = "0.16 1 0.3 1"
 
 
@@ -222,6 +222,20 @@ def write(name, mode, svg):
 
 
 # --------------------------------------------------------------------------
+# Section headings, set in the display face
+# --------------------------------------------------------------------------
+
+HEADINGS = [("languages", "Languages and tools"), ("work", "Things to check out"), ("contributions", "Contributions")]
+
+
+def heading(mode, slug, title):
+    fig = Figure(W, 40)
+    style = f".h{{font:700 {HEAD}px {DISPLAY};fill:{C['bright']};letter-spacing:-.3px}}"
+    body = fig.text(X0, 30, title, "h", "display", HEAD)
+    write(f"heading-{slug}", mode, fig.render(title, style, skeleton(fig.bars, 1.0) + settle(body, 1.0, rise=4)))
+
+
+# --------------------------------------------------------------------------
 # 1. Profile
 # --------------------------------------------------------------------------
 
@@ -238,7 +252,7 @@ FACTS = [
 
 
 def profile(mode):
-    size, intro, top, step = 40, 1.1, 172, 37
+    size, intro, top, step = 40, 1.1, 180, 39
     fig = Figure(W, top + step * (len(FACTS) - 1) + 14)
     fig.used["display"] += NAME
     style = (
@@ -266,11 +280,11 @@ def profile(mode):
     )
     fig.bars.append((X0, 16, advances[-1], 32, 6))
 
-    lead = "".join(fig.text(X0, 86 + i * 26, line, "about", size=LEAD) for i, line in enumerate(ABOUT))
+    lead = "".join(fig.text(X0, 88 + i * 28, line, "about", size=LEAD) for i, line in enumerate(ABOUT))
     rows = []
     for i, (icon, color, label, value, since) in enumerate(FACTS):
         y = top + i * step
-        row = fig.icon(icon, X0, y - 14, C[color], 18) + fig.text(X0 + 30, y, label, "label", size=SMALL) + fig.text(X0 + 150, y, value, "body")
+        row = fig.icon(icon, X0, y - 14, C[color], 18) + fig.text(X0 + 32, y, label, "label", size=SMALL) + fig.text(X0 + 156, y, value, "body")
         if since:
             row += fig.mono(W - X0, y, since, "num", anchor="end")
         rows.append(row)
@@ -302,10 +316,10 @@ TOOLS = [
 
 
 def languages(mode):
-    intro, top, step = 1.2, 22, 37
+    intro, top, step = 1.2, 24, 39
     tools_top = top + step * len(LANGUAGES) + 18
     fig = Figure(W, tools_top + step * (len(TOOLS) - 1) + 12)
-    c1, c2, c3 = X0 + 32, X0 + 172, 610
+    c1, c2, c3 = X0 + 34, X0 + 178, 618
     rows = []
     for i, (name, mark, color, used, where) in enumerate(LANGUAGES):
         y = top + i * step
@@ -342,12 +356,12 @@ WORK = [
 
 
 def work_row(mode, slug, icon, color, title, about, kind, index):
-    intro, h = 1.2 + index * 0.08, 44
+    intro, h = 1.2 + index * 0.08, 46
     fig = Figure(W, h)
     y = h / 2 + 5
-    style = f".repo{{font:700 17px {DISPLAY};fill:{C['bright']};letter-spacing:-.1px}}"
-    row = fig.icon(icon, X0, y - 15, C[color], 19) + fig.text(X0 + 32, y, title, "repo", "display", 17)
-    row += fig.text(X0 + 262, y, about, "body") + fig.text(W - X0 - 30, y, kind, "note", size=SMALL, anchor="end")
+    style = f".repo{{font:700 18px {DISPLAY};fill:{C['bright']};letter-spacing:-.1px}}"
+    row = fig.icon(icon, X0, y - 15, C[color], 19) + fig.text(X0 + 34, y, title, "repo", "display", 18)
+    row += fig.text(X0 + 272, y, about, "body") + fig.text(W - X0 - 30, y, kind, "note", size=SMALL, anchor="end")
     ax, ay = W - X0 - 15, h / 2
     row += (f'<path d="M{ax} {ay + 6}l12-12m-9 0h9v9" fill="none" stroke="{C[color]}" stroke-width="1.8" '
             'stroke-linecap="round" stroke-linejoin="round"/>')
@@ -364,7 +378,7 @@ def contributions(mode, days):
     intro, sweep = 1.2, 1.6
     cell, pitch = 13, 16.5
     x0, y0 = X0, 30
-    fig = Figure(W, y0 + 7 * pitch + 44)
+    fig = Figure(W, y0 + 7 * pitch + 46)
     start = days[0][0]
     week = lambda d: (d - start).days // 7
     weeks = week(days[-1][0]) + 1
@@ -418,7 +432,7 @@ def load_days():
     return [(datetime.date.fromisoformat(d["date"]), d["count"], d["level"]) for d in days] or None
 
 
-CONTRIBUTIONS_BLOCK = """### Contributions
+CONTRIBUTIONS_BLOCK = """<h3><picture><source media="(prefers-color-scheme: dark)" srcset="assets/heading-contributions-dark.svg"><img src="assets/heading-contributions-light.svg" alt="Contributions"></picture></h3>
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="assets/contributions-dark.svg">
@@ -442,6 +456,8 @@ def main():
     alt = None
     for mode, palette in MODES.items():
         C = palette
+        for slug, title in HEADINGS:
+            heading(mode, slug, title)
         profile(mode)
         languages(mode)
         for i, row in enumerate(WORK):
