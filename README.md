@@ -1,55 +1,24 @@
-# Hi, I'm Robert Greathouse 👋
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="assets/profile-dark.svg">
+  <img src="assets/profile-light.svg" alt="Robert Greathouse. Software engineer at Waystar. I build backend services, streaming data pipelines, and the tools around them. Now: Software Engineer Co-Op at Waystar. Based in Lehi, Utah. On the side: Keyframe, an anime tracker for iPhone. Education: BS Computer Science, Machine Learning emphasis, BYU.">
+</picture>
 
-## About Me
+### Languages and tools
 
-I am from Southern California and enjoy building things with my hands, going to the gym, and watching baseball, go
-Dodgers! I am currently attending Brigham Young University as a Senior studying Computer Science with a Machine Learning
-Emphasis. My current class load includes BYU's CS 452 - **Databases Class** and CS 473 - **Adv. Machine Learning**. I 
-am actively pursuing a Software Engineer or Machine Learning Engineer Internship.
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="assets/languages-dark.svg">
+  <img src="assets/languages-light.svg" alt="Languages: Java, TypeScript, Python, Swift, SQL, JavaScript, C++. Frameworks: Spring Boot, React, SwiftUI, Next.js. Data: PostgreSQL, Kafka, Apache Storm, Pandas, scikit-learn. Delivery: Docker, GitHub Actions, Linux, Splunk, Harness.">
+</picture>
 
-### Currently Working With
+### Things to check out
 
-- **Python** - Machine Learning
-- **SQL** - Database Development
+<a href="https://robertgreathouse.dev/#projects"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/work-keyframe-dark.svg"><img src="assets/work-keyframe-light.svg" alt="Keyframe: anime tracker for iPhone. In development."></picture></a>
+<a href="https://github.com/rkgreathouse/setup"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/work-setup-dark.svg"><img src="assets/work-setup-light.svg" alt="setup: my terminal and editor setup in one palette."></picture></a>
+<a href="https://github.com/rkgreathouse/code-cleanup"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/work-code-cleanup-dark.svg"><img src="assets/work-code-cleanup-light.svg" alt="code-cleanup: one house style for every file in a repo."></picture></a>
+<a href="https://github.com/BYU-CS-Course-Ops/mdx-canvas"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/work-mdx-canvas-dark.svg"><img src="assets/work-mdx-canvas-light.svg" alt="mdx-canvas: CLI that builds Canvas courses from XML."></picture></a>
+<a href="https://www.sloansportsconference.com/research-papers/the-pitchers-dilemma-a-game-theoretical-model-of-pickoffs-and-stolen-bases"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/work-pitchers-dilemma-dark.svg"><img src="assets/work-pitchers-dilemma-light.svg" alt="The Pitcher's Dilemma: game-theory model of pickoffs and stolen bases. Paper."></picture></a>
 
-### Current Courses
+<!-- contributions:start -->
+<!-- contributions:end -->
 
-- **CS 452** - Databases
-- **CS 473** - Advanced Machine Learning
-
-## Languages and Tools
-
-<p>
-<img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/python/python-original.svg" alt="python" width="40" height="40"/>
-<img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/cplusplus/cplusplus-original.svg" alt="cplusplus" width="40" height="40"/>
-<img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/javascript/javascript-original.svg" alt="javascript" width="40" height="40"/>
-<img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/react/react-original-wordmark.svg" alt="react" width="40" height="40"/>
-<img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/html5/html5-original-wordmark.svg" alt="html5" width="40" height="40"/>
-<img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/css3/css3-original-wordmark.svg" alt="css3" width="40" height="40"/>
-<img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/mysql/mysql-original-wordmark.svg" alt="mysql" width="40" height="40"/>
-<img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/docker/docker-plain-wordmark.svg" alt="docker" width="40" height="40"/>
-<img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/githubactions/githubactions-original.svg" alt="github actions" width="40" height="40"/>
-</p>
-
-## Current Projects
-
-**GitHub Dashboard App** - A web application currently in development to allow for quick repo overviews.
-
-## Past Projects
-
-- **[Stolen Base Probability](https://github.com/robbykap/sb_probability)** - Research project for **CS 497R** as a
-  research assistant in the IDeA Lab at BYU
-    - Resulted in a collaborative paper written with Will Melville. Will post a link when published.
-- **[Optimal Lifts](https://github.com/robbykap/CS260)** - Fitness tracking web application for **CS 260** (Web
-  Development)
-- **[NFL Play Predictor](https://github.com/robbykap/NFL_Play_Predictor)** - Machine learning model for **CS 270** (
-  Machine Learning)
-
-## Personal Portfolio
-[robertgreathouse.dev](https://robertgreathouse.dev/)
-
-## Connect With Me
-
-📧 **Email:** [robert.k.greathouse@gmail.com](mailto:robert.k.greathouse@gmail.com)
-
-💼 **LinkedIn:** [Robert Greathouse](https://www.linkedin.com/in/robert-greathouse-19ba24161/)
+[Portfolio](https://robertgreathouse.dev) · [LinkedIn](https://www.linkedin.com/in/rgreathouse-iii) · [Résumé](https://robertgreathouse.dev/robert_greathouse.pdf) · [robert.k.greathouse@gmail.com](mailto:robert.k.greathouse@gmail.com)
