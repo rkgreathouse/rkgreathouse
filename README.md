@@ -23,7 +23,7 @@
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="assets/contributions-dark.svg">
-  <img src="assets/contributions-light.svg" alt="Contribution calendar: 1,623 contributions in the last year.">
+  <img src="assets/contributions-light.svg" alt="Contribution calendar: 1,629 contributions in the last year.">
 </picture>
 <!-- contributions:end -->
 
